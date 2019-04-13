@@ -10,9 +10,10 @@ exports.addAlert = functions.https.onRequest((req, res) => {
         return admin.firestore().collection('alerts').add({
             humidity: req.body.humidity,
             temp: req.body.temp,
-            time: new Date(),
             sensorId: req.body.sensorId,
-            bed: sensor.bedNo
+            bed: sensor.bedNo,
+            handled: false,
+            time: new Date(),
         }).then(ref => {
             return res.json({ result: `Added document with ID: ${ref.id}` });
         });
